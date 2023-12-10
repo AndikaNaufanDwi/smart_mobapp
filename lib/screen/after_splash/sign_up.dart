@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:smart_mobapp/color_theme.dart';
-import 'package:smart_mobapp/home_screen.dart';
-import 'package:smart_mobapp/reuseable_textfield.dart';
-import 'package:smart_mobapp/widgets.dart';
+import 'package:smart_mobapp/fungsi/color_theme.dart';
+import 'package:smart_mobapp/fungsi/widgets.dart';
+import 'package:smart_mobapp/screen/after_login/home_screen.dart';
+import 'package:smart_mobapp/fungsi/reuseable_textfield.dart';
 
 class SignUp extends StatefulWidget {
   @override

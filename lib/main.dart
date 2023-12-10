@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_mobapp/splash_screen.dart';
+import 'package:smart_mobapp/screen/splash/splash_screen.dart';
 
 void main() async {
   runApp(const MainPage());

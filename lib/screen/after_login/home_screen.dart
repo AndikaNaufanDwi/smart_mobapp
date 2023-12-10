@@ -1,9 +1,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_mobapp/color_theme.dart';
-import 'package:smart_mobapp/home_detail.dart';
-import 'package:smart_mobapp/profile_page.dart';
-import 'package:smart_mobapp/recent_transactions.dart';
+import 'package:smart_mobapp/fungsi/color_theme.dart';
+import 'package:smart_mobapp/screen/after_login/home_detail.dart';
+import 'package:smart_mobapp/screen/after_login/recent_transactions.dart';
+import 'package:smart_mobapp/screen/profile_page.dart';
 
 class HomePage extends StatefulWidget {
   @override

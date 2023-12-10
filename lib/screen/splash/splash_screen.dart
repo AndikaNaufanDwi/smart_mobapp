@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:smart_mobapp/color_theme.dart';
-import 'package:smart_mobapp/login_screen.dart';
+import 'package:smart_mobapp/fungsi/color_theme.dart';
+import 'package:smart_mobapp/screen/after_splash/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   @override

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smart_mobapp/buying_card.dart';
-import 'package:smart_mobapp/color_theme.dart';
+import 'package:smart_mobapp/fungsi/buying_card.dart';
+import 'package:smart_mobapp/fungsi/color_theme.dart';
 
 class recentTransactions extends StatelessWidget {
   const recentTransactions({
