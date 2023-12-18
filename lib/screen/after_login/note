@@ -1,0 +1,11 @@
+Important JSON Parameters For SignUp/Profile edit which needed to be up at firebase:
+
+First name
+Last name
+Email
+-----> Probably needs Google Phone Verivication (https://developers.google.com/shopping-content/guides/phoneverification)
+Phone        
+Address
+City
+Postal Code
+Country Code

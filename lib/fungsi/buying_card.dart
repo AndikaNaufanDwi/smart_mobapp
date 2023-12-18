@@ -14,7 +14,7 @@ class _BuyingCardState extends State<BuyingCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: InkWell(
         child: Ink(
           decoration: BoxDecoration(

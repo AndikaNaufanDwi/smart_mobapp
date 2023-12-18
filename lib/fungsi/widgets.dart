@@ -6,10 +6,10 @@ Align loginText(String name) {
   return Align(
     alignment: Alignment.centerLeft,
     child: Padding(
-      padding: EdgeInsets.only(left: 30.0),
+      padding: const EdgeInsets.only(left: 30.0),
       child: Text(
         name,
-        style: TextStyle(fontSize: 16, color: LightTheme.primacCyan),
+        style: const TextStyle(fontSize: 16, color: LightTheme.primacCyan),
       ),
     ),
   );
@@ -19,38 +19,37 @@ Align signIn(String name) {
   return Align(
     alignment: Alignment.centerLeft,
     child: Padding(
-      padding: EdgeInsets.only(left: 30.0),
+      padding: const EdgeInsets.only(left: 30.0),
       child: Text(
         name,
-        style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+        style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
       ),
     ),
   );
 }
 
 Row detailData(String infoVar, String infoData, bool showActualData) {
-  String displayedData =
-      showActualData ? infoData ?? '' : '*' * (infoData?.length ?? 0);
+  String displayedData = showActualData ? infoData : '*' * (infoData.length);
 
   return Row(
     children: [
-      SizedBox(
+      const SizedBox(
         height: 5,
       ),
       Center(
         child: Text(
           infoVar,
-          style: TextStyle(color: LightTheme.primacCyan),
+          style: const TextStyle(color: LightTheme.primacCyan),
         ),
       ),
       const Spacer(),
       Center(
         child: Text(displayedData),
       ),
-      SizedBox(
+      const SizedBox(
         width: 8,
       ),
-      Icon(
+      const Icon(
         FontAwesomeIcons.angleRight,
         size: 13,
         color: LightTheme.primacCyan,
@@ -65,10 +64,10 @@ Row detailBelanja(String infoVar, String infoTanggal) {
       Center(
         child: Text(
           infoVar,
-          style: TextStyle(color: LightTheme.primacCyan),
+          style: const TextStyle(color: LightTheme.primacCyan),
         ),
       ),
-      Icon(
+      const Icon(
         FontAwesomeIcons.angleRight,
         size: 13,
         color: LightTheme.primacCyan,
@@ -77,27 +76,27 @@ Row detailBelanja(String infoVar, String infoTanggal) {
       Center(
         child: Text(
           infoTanggal,
-          style: TextStyle(color: LightTheme.primacCyan),
+          style: const TextStyle(color: LightTheme.primacCyan),
         ),
       ),
     ],
   );
 }
 
-Row expandDetail(String infoVar, String Harga) {
+Row expandDetail(String infoVar, String harga) {
   return Row(
     children: [
       Center(
         child: Text(
           infoVar,
-          style: TextStyle(color: LightTheme.primacCyan),
+          style: const TextStyle(color: LightTheme.primacCyan),
         ),
       ),
       const Spacer(),
       Center(
         child: Text(
-          'Rp.' + Harga,
-          style: TextStyle(color: LightTheme.themeBlack),
+          'Rp.$harga',
+          style: const TextStyle(color: LightTheme.themeBlack),
         ),
       ),
     ],

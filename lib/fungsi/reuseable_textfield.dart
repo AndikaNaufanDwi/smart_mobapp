@@ -18,26 +18,26 @@ class ReusableTextField extends StatefulWidget {
 }
 
 class _ReusableTextFieldState extends State<ReusableTextField> {
-  bool obscureText = true;
+  bool obscureText = false;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       child: TextField(
         controller: widget.controller,
         obscureText: obscureText,
         enableSuggestions: !widget.isPasswordType,
         autocorrect: !widget.isPasswordType,
         cursorColor: LightTheme.primacCyan,
-        style: TextStyle(color: LightTheme.primacCyan),
+        style: const TextStyle(color: LightTheme.primacCyan),
         decoration: InputDecoration(
           labelText: widget.text,
-          labelStyle: TextStyle(color: LightTheme.primacCyan),
+          labelStyle: const TextStyle(color: LightTheme.primacCyan),
           filled: true,
           floatingLabelBehavior: FloatingLabelBehavior.never,
           fillColor: LightTheme.themeWhite,
-          contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+          contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30.0),
             borderSide: const BorderSide(

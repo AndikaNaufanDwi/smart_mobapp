@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:smart_mobapp/fungsi/color_theme.dart';
 import 'package:smart_mobapp/fungsi/widgets.dart';
 
-class profilePage extends StatelessWidget {
-  const profilePage({
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({
     super.key,
   });
 
@@ -25,20 +25,20 @@ class profilePage extends StatelessWidget {
                         height: 8,
                       ),
                       Container(
-                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        child: Image.asset('assets/TuBi White.png'),
+                        padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                         height: 35,
+                        child: Image.asset('assets/TuBi White.png'),
                       ),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Column(
                     children: [
                       const SizedBox(
                         height: 8,
                       ),
                       Container(
-                        padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                        padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                         height: 40,
                         child: const Icon(
                           Icons.notifications_none,
@@ -96,8 +96,8 @@ class profilePage extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10), color: Colors.white),
-          margin: EdgeInsets.all(10),
-          padding: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Column(
             children: [
               forPadding(5),

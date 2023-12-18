@@ -4,6 +4,8 @@ import 'package:smart_mobapp/fungsi/color_theme.dart';
 import 'package:smart_mobapp/screen/after_splash/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -13,10 +15,10 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-      Duration(seconds: 3),
+      const Duration(seconds: 3),
       () => Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Login()),
+        MaterialPageRoute(builder: (context) => const Login()),
       ),
     );
   }
@@ -33,10 +35,10 @@ class _SplashScreenState extends State<SplashScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                  child: Image.asset('assets/tubi.png'),
+                SizedBox(
                   height: 200,
                   width: 200,
+                  child: Image.asset('assets/tubi.png'),
                 ),
               ],
             ),

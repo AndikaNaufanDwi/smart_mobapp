@@ -2,16 +2,16 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_mobapp/fungsi/color_theme.dart';
 
-class bottomNavBar extends StatefulWidget {
-  const bottomNavBar({
+class BottomNavBar extends StatefulWidget {
+  const BottomNavBar({
     super.key,
   });
 
   @override
-  State<bottomNavBar> createState() => _bottomNavBarState();
+  State<BottomNavBar> createState() => _BottomNavBarState();
 }
 
-class _bottomNavBarState extends State<bottomNavBar> {
+class _BottomNavBarState extends State<BottomNavBar> {
   int _currentIndex = 1;
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class _bottomNavBarState extends State<bottomNavBar> {
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: LightTheme.themeWhite,
         color: Colors.white,
-        animationDuration: Duration(milliseconds: 300),
+        animationDuration: const Duration(milliseconds: 300),
         index: _currentIndex,
         items: [
           navbarIcon(Icons.home_filled, 0, 'Home'),
@@ -47,7 +47,7 @@ class _bottomNavBarState extends State<bottomNavBar> {
             color:
                 _currentIndex == index ? LightTheme.primacCyan : Colors.black,
           ),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           Text(
             label,
             style: TextStyle(

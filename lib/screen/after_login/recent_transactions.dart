@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:smart_mobapp/fungsi/buying_card.dart';
 import 'package:smart_mobapp/fungsi/color_theme.dart';
 
-class recentTransactions extends StatelessWidget {
-  const recentTransactions({
+class RecentTransactions extends StatelessWidget {
+  const RecentTransactions({
     super.key,
   });
 
@@ -25,22 +25,22 @@ class recentTransactions extends StatelessWidget {
                         height: 8,
                       ),
                       Container(
-                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        child: Image.asset('assets/TuBi White.png'),
+                        padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                         height: 35,
+                        child: Image.asset('assets/TuBi White.png'),
                       ),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Column(
                     children: [
                       const SizedBox(
                         height: 8,
                       ),
                       Container(
-                        padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                        padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                         height: 40,
-                        child: Icon(
+                        child: const Icon(
                           Icons.notifications_none,
                           color: LightTheme.themeWhite,
                           size: 35,
@@ -57,7 +57,7 @@ class recentTransactions extends StatelessWidget {
           height: 75,
           child: Row(
             children: [
-              DecoratedBox(
+              const DecoratedBox(
                 decoration: BoxDecoration(color: LightTheme.primacCyan),
               ),
               Container(
@@ -92,12 +92,12 @@ class recentTransactions extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 8),
-        BuyingCard(),
-        SizedBox(height: 8),
-        BuyingCard(),
-        SizedBox(height: 8),
-        BuyingCard(),
+        const SizedBox(height: 8),
+        const BuyingCard(),
+        const SizedBox(height: 8),
+        const BuyingCard(),
+        const SizedBox(height: 8),
+        const BuyingCard(),
       ],
     );
   }

@@ -6,6 +6,8 @@ import 'package:smart_mobapp/screen/after_login/recent_transactions.dart';
 import 'package:smart_mobapp/screen/profile_page.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -25,16 +27,16 @@ class _HomePageState extends State<HomePage> {
             _currentIndex = index;
           });
         },
-        children: [
-          homeDetail(),
-          recentTransactions(),
-          profilePage(),
+        children: const [
+          HomeDetail(),
+          RecentTransactions(),
+          ProfilePage(),
         ],
       ),
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: LightTheme.themeWhite,
         color: Colors.white,
-        animationDuration: Duration(milliseconds: 500),
+        animationDuration: const Duration(milliseconds: 500),
         index: _currentIndex,
         items: [
           navbarIcon(Icons.home_filled, 0, 'Home'),
@@ -44,7 +46,7 @@ class _HomePageState extends State<HomePage> {
         onTap: (index) {
           pageController.animateToPage(
             index,
-            duration: Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 500),
             curve: Curves.easeInOut,
           );
         },
@@ -63,7 +65,7 @@ class _HomePageState extends State<HomePage> {
             color:
                 _currentIndex == index ? LightTheme.primacCyan : Colors.black,
           ),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           Text(
             label,
             style: TextStyle(
