@@ -2,11 +2,14 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_mobapp/fungsi/color_theme.dart';
 import 'package:smart_mobapp/screen/after_login/home_detail.dart';
+import 'package:smart_mobapp/screen/after_login/login_info.dart';
+import 'package:smart_mobapp/screen/after_login/profile_page.dart';
 import 'package:smart_mobapp/screen/after_login/recent_transactions.dart';
-import 'package:smart_mobapp/screen/profile_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final String userEmail;
+  final List<Pengguna> pengguna;
+  const HomePage({super.key, required this.userEmail, required this.pengguna});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -27,10 +30,15 @@ class _HomePageState extends State<HomePage> {
             _currentIndex = index;
           });
         },
-        children: const [
-          HomeDetail(),
+        children: [
+          HomeDetail(
+            userEmail: widget.userEmail,
+            pengguna: widget.pengguna,
+          ),
           RecentTransactions(),
-          ProfilePage(),
+          ProfilePage(
+            pengguna: widget.pengguna,
+          ),
         ],
       ),
       bottomNavigationBar: CurvedNavigationBar(

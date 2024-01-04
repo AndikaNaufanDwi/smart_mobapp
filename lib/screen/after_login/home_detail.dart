@@ -1,14 +1,30 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_mobapp/fungsi/color_theme.dart';
-import 'package:smart_mobapp/fungsi/widgets.dart';
+import 'package:smart_mobapp/main.dart';
+import 'package:smart_mobapp/screen/after_login/login_info.dart';
 
-class HomeDetail extends StatelessWidget {
+final db = FirebaseFirestore.instance;
+
+class HomeDetail extends StatefulWidget {
+  final String userEmail;
+  final List<Pengguna> pengguna;
+
   const HomeDetail({
-    super.key,
-  });
+    Key? key,
+    required this.userEmail,
+    required this.pengguna,
+  }) : super(key: key);
 
   @override
+  State<HomeDetail> createState() => _HomeDetailState();
+}
+
+class _HomeDetailState extends State<HomeDetail> {
+  @override
   Widget build(BuildContext context) {
+    final String namaUser =
+        widget.pengguna.map((pengguna) => pengguna.namaLengkap).toString();
     return ListView(
       children: [
         Container(
@@ -65,13 +81,13 @@ class HomeDetail extends StatelessWidget {
                   height: 200,
                   width: MediaQuery.of(context).size.width,
                   color: LightTheme.primacCyan,
-                  child: const Column(
+                  child: Column(
                     children: [
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(
+                          const Text(
                             'SELAMAT DATANG!',
                             style: TextStyle(
                               color: LightTheme.themeBlack,
@@ -79,14 +95,16 @@ class HomeDetail extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'ALDIRA LAZARDI',
-                            style: TextStyle(
+                            namaUser
+                                .substring(1, namaUser.length - 1)
+                                .toUpperCase(),
+                            style: const TextStyle(
                               color: LightTheme.washedCyan,
                               fontWeight: FontWeight.bold,
                               fontSize: 30,
                             ),
                           ),
-                          Center(
+                          const Center(
                             child: CircleAvatar(
                               backgroundColor: Colors.black,
                               radius: 30,
@@ -109,34 +127,183 @@ class HomeDetail extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: Column(
             children: [
-              detailBelanja('Transaksi Terakhir', '21 November 2023'),
-              const Divider(
-                color: LightTheme.washedCyan,
-                thickness: 2,
-                height: 5,
+              // Use FutureBuilder to asynchronously build cards
+              FutureBuilder<List<Map<String, dynamic>>>(
+                future: readHistory(widget.userEmail),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return const Text('No order history found.');
+                  } else {
+                    // Build cards based on data
+                    return Column(
+                      children: snapshot.data!.map((orderData) {
+                        return _buildHistoryCard(
+                          orderData['orderID'],
+                          orderData['grossAmount'],
+                          orderData['tanggal'],
+                          orderData['produkMapList'],
+                        );
+                      }).toList(),
+                    );
+                  }
+                },
               ),
-              expandDetail('Nama Barang', '19.000,00'),
-              const Divider(
-                color: Colors.transparent,
-                height: 5,
-              ),
-              expandDetail('Nama Barang', '19.500,00'),
-              const Divider(
-                color: Colors.transparent,
-              ),
-              expandDetail('Nama Barang', '20.000,00'),
             ],
           ),
         ),
-        Container(
-          margin: const EdgeInsets.fromLTRB(25, 0, 25, 0),
-          child: const Text(
-            'View More',
-            textAlign: TextAlign.end,
-            style: TextStyle(color: LightTheme.primacCyan),
-          ),
-        )
       ],
     );
+  }
+
+  Future<List<Map<String, dynamic>>> readHistory(String email) async {
+    String collectionPath = 'pengguna/$email/history';
+    List<Map<String, dynamic>> ordersData = [];
+
+    try {
+      var querySnapshot = await db.collection(collectionPath).get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        for (var documentSnapshot in querySnapshot.docs) {
+          var data = documentSnapshot.data();
+
+          var detailTransaksi = data['detail_transaksi'];
+          var detailBarang = data['detail_barang'];
+
+          var orderID = detailTransaksi['order_id'];
+          var grossAmount = detailTransaksi['gross_amount'];
+          var tanggal = detailTransaksi['tanggal'];
+
+          var items = detailBarang['items'];
+          List<Map<String, dynamic>> produkMapList =
+              List<Map<String, dynamic>>.from(items);
+
+          var orderData = {
+            'orderID': orderID,
+            'grossAmount': grossAmount,
+            'tanggal': tanggal,
+            'produkMapList': produkMapList,
+          };
+
+          // Add the map to the list
+          ordersData.add(orderData);
+
+          logger.i('Read history for order ID: $orderID successfully');
+        }
+      } else {
+        logger.i('No documents found in the history collection');
+      }
+    } catch (e) {
+      logger.e('Error reading history: $e');
+    }
+    logger.i(ordersData);
+    return ordersData;
+  }
+
+  Widget _buildHistoryCard(
+    String orderID,
+    int grossAmount,
+    String tanggal,
+    List<Map<String, dynamic>> produkMapList,
+  ) {
+    return Card(
+      color: LightTheme.themeWhite,
+      child: ListTile(
+        title: Text('Tanggal: $tanggal'),
+        subtitle: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: _buildProductList(produkMapList),
+              ),
+              TextButton(
+                onPressed: () {
+                  _showDetailsDialog(
+                      produkMapList, orderID, grossAmount, tanggal);
+                },
+                child: const Text(
+                  'View Details',
+                  style: TextStyle(fontSize: 12),
+                ),
+              ),
+            ]),
+      ),
+    );
+  }
+
+  List<Widget> _buildProductList(List<Map<String, dynamic>> produkMapList) {
+    List<Widget> productList = [];
+
+    for (var i = 0; i < 3 && i < produkMapList.length; i++) {
+      var productName = produkMapList[i]['nama'];
+      productList.add(Text(productName));
+    }
+
+    return productList;
+  }
+
+  List<Widget> _buildProductListDetailed(
+      List<Map<String, dynamic>> produkMapList) {
+    List<Widget> productList = [];
+
+    for (var i = 0; i < produkMapList.length; i++) {
+      var productName = produkMapList[i]['nama'];
+      productList.add(Text(productName));
+    }
+
+    return productList;
+  }
+
+  void _showDetailsDialog(List<Map<String, dynamic>> produkMapList,
+      String orderID, int grossAmount, String tanggal) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Order Details'),
+          content: Container(
+            width: double.maxFinite,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Order ID: $orderID'),
+                  Text('Gross Amount: $grossAmount'),
+                  Text('Tanggal: $tanggal'),
+                  SizedBox(height: 10),
+                  Text('Items:'),
+                  Column(
+                    children: _buildProductListWithHarga(produkMapList),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  List<Widget> _buildProductListWithHarga(
+      List<Map<String, dynamic>> produkMapList) {
+    return produkMapList.map((item) {
+      return ListTile(
+        title: Text('Nama: ${item['nama']}'),
+        subtitle: Text('Kode: ${item['kode']}\nHarga: ${item['harga']}'),
+      );
+    }).toList();
   }
 }

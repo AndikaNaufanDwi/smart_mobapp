@@ -1,7 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:smart_mobapp/firebase_options.dart';
 import 'package:smart_mobapp/screen/splash/splash_screen.dart';
+
+var logger = Logger();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

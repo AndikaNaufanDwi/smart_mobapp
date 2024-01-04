@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:smart_mobapp/fungsi/color_theme.dart';
 import 'package:smart_mobapp/fungsi/widgets.dart';
 import 'package:smart_mobapp/fungsi/reuseable_textfield.dart';
-import 'package:smart_mobapp/screen/after_login/home_screen.dart';
 import 'package:smart_mobapp/screen/after_splash/login_screen.dart';
 
 class SignUp extends StatefulWidget {
@@ -58,7 +57,7 @@ class _SignUpState extends State<SignUp> {
             '${firstNameController.text.trim()} ${lastNameController.text.trim()}',
         'alamat': {
           'kota': addressController.text.trim(),
-          'kode_pos': postalController.text.trim(),
+          'kode_pos': int.parse(postalController.text.trim()),
         },
       });
     } catch (e) {

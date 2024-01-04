@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:smart_mobapp/fungsi/color_theme.dart';
 import 'package:smart_mobapp/fungsi/widgets.dart';
+import 'package:smart_mobapp/screen/after_login/login_info.dart';
 
 class ProfilePage extends StatelessWidget {
+  final List<Pengguna> pengguna;
   const ProfilePage({
     super.key,
+    required this.pengguna,
   });
 
   @override
   Widget build(BuildContext context) {
+    final String namaUser =
+        pengguna.map((pengguna) => pengguna.namaLengkap).toString();
+    final String userName =
+        pengguna.map((pengguna) => pengguna.username).toString();
+    final String email = pengguna.map((pengguna) => pengguna.email).toString();
     return ListView(
       children: [
         Container(
@@ -64,27 +72,27 @@ class ProfilePage extends StatelessWidget {
                 height: 200,
                 width: MediaQuery.of(context).size.width,
                 color: LightTheme.primacCyan,
-                child: const Column(
+                child: Column(
                   children: [
-                    Center(
+                    const Center(
                       child: CircleAvatar(
                         backgroundColor: Colors.grey,
                         radius: 30,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
-                      'Aldira Lazardi',
-                      style: TextStyle(color: LightTheme.themeWhite),
+                      namaUser.substring(1, namaUser.length - 1),
+                      style: const TextStyle(color: LightTheme.themeWhite),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
-                      'aldirarn',
-                      style: TextStyle(color: LightTheme.themeWhite),
+                      userName.substring(1, userName.length - 1),
+                      style: const TextStyle(color: LightTheme.themeWhite),
                     )
                   ],
                 ),
@@ -101,27 +109,30 @@ class ProfilePage extends StatelessWidget {
           child: Column(
             children: [
               forPadding(5),
-              detailData('Nama Lengkap', 'Aldira Lazardi', true),
+              detailData('Nama Lengkap',
+                  namaUser.substring(1, namaUser.length - 1), true),
               forPadding(5),
               const Divider(
                 color: LightTheme.washedCyan,
                 thickness: 2,
               ),
               forPadding(5),
-              detailData('Username', 'aldirarn', true),
+              detailData(
+                  'Username', userName.substring(1, userName.length - 1), true),
               const Divider(
                 color: LightTheme.washedCyan,
                 thickness: 2,
               ),
               forPadding(5),
-              detailData('Password', 'Aldira Lazardi', false),
+              // detailData('Password', 'Aldira Lazardi', false),
+              // forPadding(5),
+              // const Divider(
+              //   color: LightTheme.washedCyan,
+              //   thickness: 2,
+              // ),
               forPadding(5),
-              const Divider(
-                color: LightTheme.washedCyan,
-                thickness: 2,
-              ),
-              forPadding(5),
-              detailData('Alamat Email', 'aldira@gmail.com', true),
+              detailData(
+                  'Alamat Email', email.substring(1, email.length - 1), true),
               forPadding(5),
             ],
           ),
